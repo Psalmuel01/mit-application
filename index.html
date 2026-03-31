@@ -1,0 +1,381 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>GSoC 2026 Application - [Your Full Name]</title>
+    <style>
+      body {
+        font-family: Georgia, serif;
+        max-width: 800px;
+        margin: 40px auto;
+        padding: 20px;
+        line-height: 1.6;
+        color: #333;
+      }
+      h1 {
+        border-bottom: 3px solid #c00;
+        color: #c00;
+        padding-bottom: 10px;
+      }
+      h2 {
+        color: #0066cc;
+        margin-top: 50px;
+        border-bottom: 2px solid #0066cc;
+        padding-bottom: 8px;
+      }
+      .contact {
+        background: #f5f5f5;
+        padding: 20px;
+        margin-bottom: 40px;
+        border-left: 4px solid #c00;
+      }
+      .word-count {
+        color: #666;
+        font-size: 0.9em;
+        font-style: italic;
+        margin-top: -10px;
+        margin-bottom: 15px;
+      }
+      .section {
+        margin-bottom: 40px;
+      }
+      code {
+        background: #f4f4f4;
+        padding: 2px 6px;
+        font-family: monospace;
+      }
+      ul {
+        margin-left: 20px;
+      }
+      li {
+        margin-bottom: 8px;
+      }
+    </style>
+  </head>
+  <body>
+    <!-- REQUIRED HEADER -->
+    <div class="contact">
+      <strong>Name:</strong> Samuel Dahunsi<br />
+      <strong>Email:</strong> dahunsisamuel1st@gmail.com<br />
+      <strong>GitHub:</strong>
+      <a href="https://github.com/psalmuel01">github.com/psalmuel01</a><br />
+      <strong>Date:</strong> March 31, 2026
+    </div>
+
+    <h1>Google Summer of Code 2026 — MIT App Inventor Application</h1>
+
+    <!-- QUESTION 1 -->
+    <div class="section" id="interest">
+      <h2>Interest in App Inventor</h2>
+      <p class="word-count">(50 words maximum)</p>
+      <p>
+        I discovered App Inventor while mentoring Technovation Girls teams
+        (2022-2024), and it completely changed how I think about teaching tech.
+        Watching beginners go from confusion to building real apps showed me how
+        powerful visual programming can be. I want to help scale that experience
+        beyond small teams into real classrooms.
+      </p>
+    </div>
+
+    <!-- QUESTION 2 -->
+    <div class="section" id="project">
+      <h2>Proposed Summer Project</h2>
+
+      <h3>LMS Integration Module: Bridging Classrooms and Code</h3>
+
+      <p>
+        <strong>Problem Statement:</strong> Right now, App Inventor doesn't fit
+        naturally into how schools already work. Teachers rely on tools like
+        Canvas or Google Classroom, but App Inventor sits outside that workflow.
+        So assignments get messy - files sent over email, versions lost,
+        progress hard to track. That friction quietly discourages adoption.
+      </p>
+
+      <p>
+        <strong>Proposed Solution:</strong> I want to build an LMS integration
+        layer that connects App Inventor directly to platforms like Canvas and
+        Google Classroom. Teachers can create assignments, students can submit
+        projects, and grading happens in one place. No more workarounds, just a
+        smooth classroom experience.
+      </p>
+
+      <h4>Technical Architecture</h4>
+      <table
+        border="1"
+        cellpadding="8"
+        style="border-collapse: collapse; width: 100%"
+      >
+        <tr style="background: #f0f0f0">
+          <th>Component</th>
+          <th>Technology</th>
+          <th>Purpose</th>
+        </tr>
+        <tr>
+          <td>LMS Adapter Interface</td>
+          <td>Java</td>
+          <td>Abstract layer for LMS-specific implementations</td>
+        </tr>
+        <tr>
+          <td>Canvas LTI 1.3 Integration</td>
+          <td>Java + REST API</td>
+          <td>Deep linking, assignment creation, grade passback</td>
+        </tr>
+        <tr>
+          <td>Google Classroom Integration</td>
+          <td>JavaScript/Node.js microservice</td>
+          <td>OAuth2 flows, CourseWork API interactions</td>
+        </tr>
+        <tr>
+          <td>Frontend UI Components</td>
+          <td>GWT</td>
+          <td>Teacher dashboard for assignment management</td>
+        </tr>
+        <tr>
+          <td>Submission Handler</td>
+          <td>Java</td>
+          <td>AIA file ingestion, metadata extraction, version tracking</td>
+        </tr>
+      </table>
+
+      <h4>Implementation Timeline (175 hours)</h4>
+
+      <p><strong>Phase 1: Core Infrastructure (Weeks 1-4, 50 hours)</strong></p>
+      <ul>
+        <li>
+          Extend App Inventor's project metadata system to include
+          <code>assignmentId</code> and <code>courseId</code> fields
+        </li>
+        <li>
+          Implement secure OAuth2 token storage per-user (encrypted at rest)
+        </li>
+        <li>
+          Create LMS adapter interface with pluggable architecture for multiple
+          providers
+        </li>
+        <li>Build local testing environment with Canvas sandbox</li>
+      </ul>
+
+      <p><strong>Phase 2: Canvas Integration (Weeks 5-9, 75 hours)</strong></p>
+      <ul>
+        <li>
+          LTI 1.3 Advantage Services for seamless launch from Canvas into App
+          Inventor with context
+        </li>
+        <li>
+          Assignment creation via
+          <code>/api/v1/courses/:course_id/assignments</code> with App
+          Inventor-specific submission types
+        </li>
+        <li>
+          Grade passback via
+          <code
+            >/api/v1/courses/:course_id/assignments/:assignment_id/submissions/:user_id</code
+          >
+        </li>
+        <li>Rubric assessment support for structured grading</li>
+      </ul>
+
+      <p>
+        <strong
+          >Phase 3: Google Classroom Integration (Weeks 10-11, 35 hours)</strong
+        >
+      </p>
+      <ul>
+        <li>CourseWork API integration for assignment distribution</li>
+        <li>StudentSubmission API for .AIA file collection</li>
+        <li>Simplified OAuth2 flow for K-12 accessibility</li>
+      </ul>
+
+      <p><strong>Phase 4: UI/UX & Testing (Week 12, 15 hours)</strong></p>
+      <ul>
+        <li>Teacher-facing dashboard in Designer view (GWT)</li>
+        <li>Student submission flow with progress indicators</li>
+        <li>End-to-end testing with sandbox LMS instances</li>
+      </ul>
+
+      <h4>Why This Should Be a Priority for App Inventor</h4>
+
+      <ol>
+        <li>
+          <strong>Fits how schools already operate:</strong> LMS platforms are
+          now standard. If App Inventor doesn't integrate, it risks being left
+          out of formal education.
+        </li>
+        <li>
+          <strong>Better access for students:</strong> Cleaner submission flows
+          reduce issues for students with unstable internet or limited
+          resources.
+        </li>
+        <li>
+          <strong>Unlocks learning insights:</strong> Structured submissions
+          make it easier to understand how students learn and improve teaching
+          tools over time.
+        </li>
+        <li>
+          <strong>Keeps App Inventor competitive:</strong> Other platforms
+          already support classroom workflows. This closes that gap.
+        </li>
+      </ol>
+
+      <h4>Risk Mitigation</h4>
+
+      <p>
+        <strong>Java Learning Curve:</strong> I commit to completing "Java for
+        Android Developers" coursework before coding begins (May 1-May 30), with
+        daily 1-hour practice on the App Inventor codebase. My JavaScript
+        expertise provides strong foundation as both are C-family languages with
+        OOP principles I use daily.
+      </p>
+
+      <p>
+        <strong>LTI Complexity:</strong> Start with Canvas REST API before LTI
+        1.3; fallback to API-only if LTI timeline slips. Abstract LMS interface
+        allows swapping implementations without core rewrites.
+      </p>
+
+      <h4>Deliverables</h4>
+      <ul>
+        <li>
+          Functional Canvas integration with assignment creation, submission,
+          and grading
+        </li>
+        <li>
+          Functional Google Classroom integration with CourseWork management
+        </li>
+        <li>Teacher documentation with screenshots and video walkthroughs</li>
+        <li>Student-facing tutorial: "Submitting Your First App"</li>
+        <li>
+          Technical documentation for adding future LMS providers (Blackboard,
+          Moodle)
+        </li>
+      </ul>
+
+      <h4>Post-GSoC Vision</h4>
+      <p>
+        This integration becomes foundation for broader "App Inventor Education
+        Suite", enabling district-wide curriculum deployment, automated
+        assessment rubrics, and eventually AI-powered code review for student
+        projects.
+      </p>
+    </div>
+
+    <!-- QUESTION 3 -->
+    <div class="section" id="teaching">
+      <h2>Interest in Introductory Programming</h2>
+      <p class="word-count">(50 words maximum)</p>
+      <p>
+        I've mentored Technovation Girls teams using App Inventor, teaching
+        beginners aged 13-18 how to think in logic, not syntax. One team went on
+        to win Africa Regionals. I focus on breaking complex ideas into simple,
+        visual steps, helping students build confidence by creating things that
+        actually work.
+      </p>
+    </div>
+
+    <!-- QUESTION 4 -->
+    <div class="section" id="tools">
+      <h2>Experience with Development Tools</h2>
+
+      <h3>JavaScript (Extensive Experience)</h3>
+      <p>
+        I have around three years of experience working with JavaScript,
+        primarily building frontend applications with React and Next.js, along
+        with some backend work using Node.js. I’ve developed multiple projects
+        across Web2 and Web3, focusing on clean UI, performance, and real user
+        interaction. My work typically involves integrating APIs, handling
+        application state, and structuring components for scalability and
+        maintainability.
+      </p>
+
+      <h3>Git/GitHub (Extensive Experience)</h3>
+      <p>
+        Daily driver for version control since 2021. I maintain clean commit
+        histories using feature branching, interactive rebasing, and
+        conventional commit messages. My workflow includes detailed PR
+        descriptions with screenshots for UI changes and reproduction steps for
+        bug fixes. I review code in open-source projects I depend on, focusing
+        on documentation clarity and test coverage.
+      </p>
+
+      <h3>Java (Some Experience, Rapidly Expanding)</h3>
+      <p>
+        I'm currently building my Java proficiency in preparation for working
+        with the App Inventor codebase. While most of my experience is in
+        JavaScript, I have a solid understanding of OOP principles and strongly
+        typed languages. I've begun familiarizing myself with App Inventor's
+        architecture and development workflow, and I'm committed to ramping up
+        quickly through focused practice and contributions ahead of GSoC.
+      </p>
+
+      <h3>Google Web Toolkit (Some Experience)</h3>
+      <p>
+        Researching GWT architecture for this proposal. I understand the
+        client-server split, UIBinder templating, and the Java-to-JavaScript
+        compilation model. I have set up the local GWT development mode and can
+        iterate on Designer view changes. I will deepen expertise through
+        pre-GSoC contribution to UI-related "help wanted" issues.
+      </p>
+
+      <h3>Google App Engine (Some Experience)</h3>
+      <p>
+        Successfully deployed and run App Inventor's local App Engine
+        development server. I understand the datastore entities, memcached
+        session management, and the constraints of the Google Cloud environment.
+        I have explored the project storage layer and OAuth2 callback handlers
+        in the codebase.
+      </p>
+    </div>
+
+    <!-- QUESTION 5 -->
+    <div class="section" id="teams">
+      <h2>
+        Experience with Teams, Online Developer Communities, and Large Code
+        Bases
+      </h2>
+
+      <p>
+        I have experience collaborating on real-world software projects, from
+        building full-stack applications to integrating Web3 solutions. I’m
+        comfortable managing codebases, coordinating with team members, and
+        debugging complex issues under tight deadlines.
+      </p>
+
+      <p>
+        My most relevant experience comes from mentoring Technovation Girls
+        (2022-2024), where I collaborated with global teams across time zones,
+        managed GitHub repositories for student projects, and coordinated with
+        MIT App Inventor's community forum for technical troubleshooting. This
+        taught me to navigate large, unfamiliar codebases under deadline
+        pressure while maintaining patience for learners at all levels.
+      </p>
+
+      <p>
+        I have been an active member of the MIT App Inventor Community Forum
+        since 2024. In addition to that, I actively participate in several
+        online developer communities. I contribute to GitHub Discussions and
+        Issues for open-source projects, engage in technical conversations on
+        Reddit (r/programming, r/Web3Dev), and write or comment on Hashnode.
+        These platforms help me stay connected with evolving practices, exchange
+        ideas, and learn from diverse developers worldwide.
+      </p>
+
+
+      <p>
+        My approach to large codebases is systematic: I begin by mapping
+        architectre through documentation and execution tracing, then make
+        minimal invasive changes with comprehensive testing. In App Inventor
+        specifically, I have traced the project service layer from HTTP requests
+        through datastore persistence, giving me confidence to extend the system
+        safely.
+      </p>
+
+      <p>
+        I maintain a professional standard in all collaborations: detailed
+        commit messages, thorough PR descriptions, respectful code review
+        responses, and proactive communication when blockers arise. These habits
+        ensure I contribute effectively to distributed teams working on complex
+        systems.
+      </p>
+    </div>
+  </body>
+</html>
